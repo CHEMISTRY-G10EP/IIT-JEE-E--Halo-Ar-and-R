@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  
+  
+  <title> Quiz –DARZENS’ PROCESS + HUNSDIECKER REACTION-4</title>
+  
+  
+  <style>
+    body{font-family:Arial, sans-serif;padding:20px;background:#121212;color:#f0f0f0;}
+    #logo{display:block;margin:0 auto 25px;max-width:180px;}
+    #name-container{background:#1e1e1e;padding:30px;border-radius:6px;max-width:420px;margin:0 auto;}
+    #name-container input{width:100%;padding:10px;margin:10px 0 15px;border:none;border-radius:4px;font-size:16px;}
+    #quiz-container{display:none;}
+    .question{border:1px solid #333;padding:15px;margin-bottom:20px;border-radius:5px;background:#1e1e1e;}
+    .question h3{margin:0 0 10px;}
+    .option-item { display: flex; align-items: center; gap: 8px; margin: 6px 0; padding: 6px 8px; border-radius: 4px; background: #2a2a2a; color: #ccc; cursor: pointer; }
+    .option-item input[type="radio"] { margin: 0; }
+    .submit-button,.toggle-button,.dontknow-button{margin-top:10px;padding:6px 12px;background:#007BFF;color:#fff;border:none;border-radius:4px;cursor:pointer;margin-right:5px;}
+    .solution{display:none;margin-top:10px;background:#2d2d2d;padding:10px;border-left:4px solid #28a745;}
+    #scorecard{background:#2d2d2d;padding:15px;border-radius:6px;margin-top:30px;display:none;}
+    #timer{font-weight:bold;color:#00ffcc;}
+    #studentPrintName{text-align:center;font-size:18px;font-weight:bold;margin-top:-15px;margin-bottom:5px;display:none;}
+    #examDateTime{text-align:center;font-size:14px;margin-bottom:20px;display:none;}
+    @media print {
+      body { background: #fff; color:#000; }
+      .submit-button, .dontknow-button, .toggle-button, #reportBtn, #reportModal { display:none !important; }
+      #name-container { display:none !important; }
+    }
+    #reportBtn { position: fixed; bottom: 20px; right: 20px; background: #ff4757; color: white; border: none; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0px 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+    #reportModal { display: none; position: fixed; bottom: 80px; right: 20px; background: #1e1e1e; border: 1px solid #444; padding: 15px; border-radius: 8px; width: 260px; z-index: 1001; }
+    #reportModal textarea { width: 100%; height: 80px; padding: 8px; border: none; border-radius: 4px; resize: none; font-size: 14px; }
+    #reportModal button { margin-top: 10px; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    #sendReport { background: #28a745; color: white; }
+    #closeReport { background: #dc3545; color: white; margin-left: 5px; }
+  </style>
+
+  <!-- MathJax Configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']], 
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+        processEscapes: true
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<img id="logo" src="https://i.ibb.co/WNZTWPwv/LOGO-PNG-2025-fab.png" alt="Logo" />
+
+<div id="studentPrintName"></div>
+<div id="examDateTime"></div>
+
+<div id="name-container">
+  <h2>Enter your name to begin</h2>
+  <input type="text" id="studentNameInput" placeholder="Your Name" />
+  <button class="submit-button" onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<div id="quiz-container">
+
+
+  <h2> Quiz –DARZENS’ PROCESS + HUNSDIECKER REACTION-4</h2>
+  
+  
+  <p><strong>Time Elapsed:</strong> <span id="timer">00:00</span></p>
+  <div id="questions-container"></div>
+
+  <div style="margin-top:30px;">
+    <button class="submit-button" onclick="finalSubmit()">Final Submit</button>
+    <button class="submit-button" onclick="printQuestions()">Print Questions</button>
+    <button class="submit-button" id="printScoreBtn" onclick="printScorecard()" style="display:none;">Save or Print Scorecard</button>
+    <button class="submit-button" id="shareWhatsappBtn" style="display:none;">SHARE on WhatsApp</button>
+  </div>
+
+ <div id="scorecard">
+  <h3>Your Scorecard</h3>
+  <p id="scoreText"></p>
+  <table id="scoreTable" border="1" cellspacing="0" cellpadding="6" style="width:100%;border-collapse:collapse;margin-top:15px;">
+    <thead style="background:#333;color:#fff;">
+      <tr>
+        <th>Q.No</th>
+        <th>Question</th>
+        <th>Your Answer</th>
+        <th>Correct Answer</th>
+        <th>Result</th>
+        <th>Solution</th>
+      </tr>
+    </thead>
+    <tbody id="scoreDetails"></tbody>
+  </table>
+</div>
+
+<button id="reportBtn">Report Mistake</button>
+
+<div id="reportModal">
+  <textarea id="reportMsg" placeholder="Describe the mistake..."></textarea>
+  <div style="text-align:right;">
+    <button id="sendReport">Send</button>
+    <button id="closeReport">Close</button>
+  </div>
+</div>
+
+<script>
+
+
+const Q = [
+  {
+    "id": "dc1",
+    "question": "Alcohols react with thionyl chloride to form alkyl chlorides by which method?",
+    "image": null,
+    "options": {
+      "A": "Lucas process",
+      "B": "Darzens’ process",
+      "C": "Hunsdiecker reaction",
+      "D": "Wurtz reaction"
+    },
+    "answer": "B",
+    "solution": "Conversion of alcohols into alkyl chlorides using thionyl chloride is known as Darzens’ process.",
+    "solution_steps": [
+      "Alcohol reacts with \\( \\text{SOCl}_2 \\).",
+      "Alkyl chloride is formed.",
+      "By-products escape as gases."
+    ]
+  },
+  {
+    "id": "dc2",
+    "question": "The mechanism involved in Darzens’ process is:",
+    "image": null,
+    "options": {
+      "A": "SN1",
+      "B": "SN2",
+      "C": "Free radical",
+      "D": "Electrophilic addition"
+    },
+    "answer": "B",
+    "solution": "Darzens’ process proceeds via SN2 mechanism, especially for primary and secondary alcohols.",
+    "solution_steps": [
+      "Backside attack by \\( \\text{Cl}^- \\).",
+      "No carbocation formation.",
+      "No rearrangement occurs."
+    ]
+  },
+  {
+    "id": "dc3",
+    "question": "Which stereochemical change occurs when a chiral alcohol reacts with \\( \\text{SOCl}_2 \\) by Darzens’ process?",
+    "image": null,
+    "options": {
+      "A": "Retention of configuration",
+      "B": "Racemization",
+      "C": "Inversion of configuration",
+      "D": "No change"
+    },
+    "answer": "C",
+    "solution": "SN2 reaction causes Walden inversion.",
+    "solution_steps": [
+      "Nucleophile attacks from backside.",
+      "Bond breaks simultaneously.",
+      "Configuration is inverted."
+    ]
+  },
+  {
+    "id": "dc4",
+    "question": "Why is Darzens’ process considered a clean method for preparing alkyl chlorides?",
+    "image": null,
+    "options": {
+      "A": "Reaction is reversible",
+      "B": "No catalyst is needed",
+      "C": "By-products are gaseous",
+      "D": "Reaction is very slow"
+    },
+    "answer": "C",
+    "solution": "The by-products \\( \\text{SO}_2 \\) and \\( \\text{HCl} \\) escape as gases.",
+    "solution_steps": [
+      "No contamination of product.",
+      "Reaction equilibrium shifts forward.",
+      "High yield is obtained."
+    ]
+  },
+  {
+    "id": "dc5",
+    "question": "Which of the following is NOT possible in Darzens’ process?",
+    "image": null,
+    "options": {
+      "A": "Walden inversion",
+      "B": "Backside attack",
+      "C": "Alkyl shift",
+      "D": "Formation of alkyl chloride"
+    },
+    "answer": "C",
+    "solution": "No carbocation is formed, hence rearrangements are impossible.",
+    "solution_steps": [
+      "Reaction follows SN2.",
+      "No intermediate carbocation.",
+      "No hydride or alkyl shift."
+    ]
+  },
+  {
+    "id": "hd1",
+    "question": "The reaction in which silver salt of a carboxylic acid reacts with bromine to give an alkyl bromide is called:",
+    "image": null,
+    "options": {
+      "A": "Kolbe reaction",
+      "B": "Wurtz reaction",
+      "C": "Hunsdiecker reaction",
+      "D": "Darzens’ process"
+    },
+    "answer": "C",
+    "solution": "This decarboxylative halogenation is known as Hunsdiecker reaction.",
+    "solution_steps": [
+      "Silver salt reacts with \\( \\text{Br}_2 \\).",
+      "Decarboxylation occurs.",
+      "Alkyl bromide is formed."
+    ]
+  },
+  {
+    "id": "hd2",
+    "question": "The Hunsdiecker reaction proceeds by which mechanism?",
+    "image": null,
+    "options": {
+      "A": "SN1",
+      "B": "SN2",
+      "C": "Electrophilic substitution",
+      "D": "Free radical"
+    },
+    "answer": "D",
+    "solution": "Hunsdiecker reaction involves free radical intermediates.",
+    "solution_steps": [
+      "Homolytic bond cleavage occurs.",
+      "Radicals are generated.",
+      "Chain reaction proceeds."
+    ]
+  },
+  {
+    "id": "hd3",
+    "question": "The number of carbon atoms in the alkyl halide formed by Hunsdiecker reaction is:",
+    "image": null,
+    "options": {
+      "A": "Same as the acid",
+      "B": "One more than the acid",
+      "C": "One less than the acid",
+      "D": "Double the acid"
+    },
+    "answer": "C",
+    "solution": "One carbon is lost as \\( \\text{CO}_2 \\) during decarboxylation.",
+    "solution_steps": [
+      "Carboxyl group is removed.",
+      "\\( \\text{CO}_2 \\) is released.",
+      "Shorter alkyl halide forms."
+    ]
+  },
+  {
+    "id": "hd4",
+    "question": "Which alkyl halide is obtained in good yield in Hunsdiecker reaction?",
+    "image": null,
+    "options": {
+      "A": "Alkyl chloride",
+      "B": "Alkyl bromide",
+      "C": "Alkyl iodide",
+      "D": "Alkyl fluoride"
+    },
+    "answer": "B",
+    "solution": "Only alkyl bromides are obtained in good yield.",
+    "solution_steps": [
+      "Bromine supports controlled radical reaction.",
+      "Chlorine causes side reactions.",
+      "Iodine does not proceed properly."
+    ]
+  },
+  {
+    "id": "hd5",
+    "question": "Why is chlorination not preferred in Hunsdiecker reaction?",
+    "image": null,
+    "options": {
+      "A": "Reaction is slow",
+      "B": "Silver chloride is soluble",
+      "C": "Yield of alkyl chloride is poor",
+      "D": "Chlorine is inactive"
+    },
+    "answer": "C",
+    "solution": "Chlorine leads to side reactions and poor yield.",
+    "solution_steps": [
+      "Chlorine is too reactive.",
+      "Uncontrolled reactions occur.",
+      "Product purity decreases."
+    ]
+  },
+  {
+    "id": "hd6",
+    "question": "What happens when iodine is used in place of bromine in Hunsdiecker reaction?",
+    "image": null,
+    "options": {
+      "A": "Alkyl iodide is formed",
+      "B": "No reaction occurs",
+      "C": "Ester is formed",
+      "D": "Alkene is formed"
+    },
+    "answer": "C",
+    "solution": "Iodine gives ester instead of alkyl iodide.",
+    "solution_steps": [
+      "Iodine is less reactive.",
+      "Free radical chain fails.",
+      "Birnbaum–Simonini reaction occurs."
+    ]
+  },
+  {
+    "id": "hd7",
+    "question": "The reactivity order of alkyl radicals in Hunsdiecker reaction is:",
+    "image": null,
+    "options": {
+      "A": "\\( 1^\\circ > 2^\\circ > 3^\\circ \\)",
+      "B": "\\( 2^\\circ > 3^\\circ > 1^\\circ \\)",
+      "C": "\\( 3^\\circ > 2^\\circ > 1^\\circ \\)",
+      "D": "\\( 1^\\circ > 3^\\circ > 2^\\circ \\)"
+    },
+    "answer": "C",
+    "solution": "More stable alkyl radicals react more easily.",
+    "solution_steps": [
+      "Tertiary radicals are most stable.",
+      "Secondary radicals are moderately stable.",
+      "Primary radicals are least stable."
+    ]
+  },
+  {
+    "id": "hd8",
+    "question": "Which intermediate is formed first when silver carboxylate reacts with bromine?",
+    "image": null,
+    "options": {
+      "A": "Alkyl radical",
+      "B": "Acyl hypobromite",
+      "C": "Carbocation",
+      "D": "Alkene"
+    },
+    "answer": "B",
+    "solution": "Acyl hypobromite is formed initially.",
+    "solution_steps": [
+      "\\( \\text{RCOOAg} + \\text{Br}_2 \\rightarrow \\text{RCOOBr} + \\text{AgBr} \\downarrow \\)",
+      "Intermediate is unstable.",
+      "Undergoes homolysis."
+    ]
+  }
+]
+
+;
+
+
+
+
+let student = '';
+let timerHandle;
+let printMode = '';
+let examDateTime = '';
+
+const quizTitle = document.title.split("Quiz")[1]?.trim() || document.title;
+
+function startQuiz() {
+  const name = document.getElementById('studentNameInput').value.trim();
+  if (!name) { alert('Please enter your name.'); return; }
+  student = name;
+  examDateTime = new Date().toLocaleString();
+  document.getElementById('name-container').style.display = 'none';
+  document.getElementById('quiz-container').style.display = 'block';
+  buildQuestions();
+  if (window.MathJax) MathJax.typesetPromise();
+  startTimer();
+}
+
+function buildQuestions() {
+  const out = document.getElementById('questions-container');
+  out.innerHTML = '';
+
+  Q.forEach((q, index) => {
+    const qText = q.text || q.question || q.prompt || ''; // tolerate different keys
+
+    // Normalize options into an ordered array of [letter, optionText]
+    let entries = [];
+    if (Array.isArray(q.options)) {
+      entries = q.options.map((opt, i) => [String.fromCharCode(65 + i), opt]);
+    } else if (q.options && typeof q.options === 'object') {
+      const keys = Object.keys(q.options);
+      const keysAreLetters = keys.every(k => /^[A-Z]$/.test(k));
+      if (keysAreLetters) {
+        keys.sort();
+        entries = keys.map(k => [k, q.options[k]]);
+      } else {
+        entries = keys.map((k, i) => [String.fromCharCode(65 + i), q.options[k]]);
+      }
+    }
+
+    const optionsHTML = entries.map(([letter, opt]) => {
+      return `<label class="option-item" for="${q.id}-${letter}">
+                <input type="radio" id="${q.id}-${letter}" name="${q.id}" value="${letter}" onchange="enableSubmit('${q.id}')">
+                ${letter}. ${opt}
+              </label>`;
+    }).join('');
+
+    const imageHTML = q.image ? `<div><img src="${q.image}" alt="figure" style="max-width:360px; margin:10px 0; display:block;"></div>` : '';
+
+    // Handle solution steps if they exist
+let solutionStepsHTML = '';
+if (q.solution_steps && Array.isArray(q.solution_steps) && q.solution_steps.length > 0) {
+  solutionStepsHTML = '<ul style="margin-top:10px;">' +
+    q.solution_steps.map(step => {
+      if (step.includes("\n")) {
+        return `<li><pre style="background:#111; padding:6px; border-radius:4px; overflow-x:auto;">${step}</pre></li>`;
+      }
+      return `<li>${step}</li>`;
+    }).join('') +
+    '</ul>';
+}
+
+
+    out.insertAdjacentHTML('beforeend', `
+      <div class="question" id="${q.id}-wrap">
+        <h3>Q${index + 1}. ${qText}</h3>
+        ${imageHTML}
+        <div class="options">${optionsHTML}</div>
+        <div id="${q.id}-buttons">
+          <button id="sub-${q.id}" class="submit-button" disabled onclick="grade('${q.id}')">Submit</button>
+          <button class="dontknow-button" onclick="skip('${q.id}')">I Don’t Know</button>
+        </div>
+        <button class="toggle-button" id="btn-sol-${q.id}" style="display:none;" onclick="toggleSolution('sol-${q.id}')">Show Solution</button>
+        <div class="solution" id="sol-${q.id}">
+          <strong>Solution:</strong> ${q.solution || ''} ${solutionStepsHTML}
+        </div>
+      </div>
+    `);
+  });
+
+  if (window.MathJax && typeof MathJax.typesetPromise === 'function') MathJax.typesetPromise();
+}
+
+
+
+function enableSubmit(qid) { document.getElementById(`sub-${qid}`).disabled = false; }
+
+function grade(qid) {
+  const q = Q.find(x => x.id === qid);
+  // accept different possible field names for the correct answer
+  const correct = q.correct || q.answer || q.key || q.correctAnswer;
+  const chosen = document.querySelector(`input[name="${qid}"]:checked`);
+  if (!chosen) return;
+
+  // lock options
+  document.querySelectorAll(`input[name="${qid}"]`).forEach(i => i.disabled = true);
+
+  // the chosen label
+  const chosenLabel = chosen.closest('label.option-item');
+
+  // find input that matches the correct letter
+  const correctInput = document.querySelector(`input[name="${qid}"][value="${correct}"]`);
+  const correctLabel = correctInput ? correctInput.closest('label.option-item') : null;
+
+  if (chosen.value === correct) {
+    // correct
+    if (chosenLabel) {
+      chosenLabel.style.background = '#28a745';
+      chosenLabel.style.color = '#fff';
+    }
+  } else {
+    // wrong: mark chosen red, mark correct green (if found)
+    if (chosenLabel) {
+      chosenLabel.style.background = '#dc3545';
+      chosenLabel.style.color = '#fff';
+    }
+    if (correctLabel) {
+      correctLabel.style.background = '#28a745';
+      correctLabel.style.color = '#fff';
+    }
+  }
+
+  // show solution immediately
+  const solElem = document.getElementById(`sol-${qid}`);
+  if (solElem) solElem.style.display = "block";
+
+  // hide the buttons for this question
+  const buttons = document.getElementById(`${qid}-buttons`);
+  if (buttons) buttons.style.display = "none";
+  const btnSol = document.getElementById(`btn-sol-${q.id}`);
+  if (btnSol) btnSol.style.display = "none";
+
+  // re-typeset MathJax for solution if it contains LaTeX
+  if (window.MathJax && typeof MathJax.typesetPromise === 'function') MathJax.typesetPromise();
+}
+
+
+function skip(qid) { document.querySelectorAll(`input[name="${qid}"]`).forEach(r => r.disabled = true); showSolutionButton(qid); }
+function showSolutionButton(qid) { document.getElementById(`btn-sol-${qid}`).style.display = 'inline-block'; document.getElementById(`${qid}-buttons`).style.display = 'none'; }
+function toggleSolution(id) { const elem = document.getElementById(id); elem.style.display = elem.style.display === 'block' ? 'none' : 'block'; }
+
+function startTimer() {
+  const display = document.getElementById('timer');
+  const started = Date.now();
+  timerHandle = setInterval(() => { const s = Math.floor((Date.now() - started) / 1000); display.textContent = `${String((s / 60) | 0).padStart(2,'0')}:${String(s % 60).padStart(2,'0')}`; }, 1000);
+}
+
+function finalSubmit() {
+  clearInterval(timerHandle);
+  document.querySelectorAll("input[type=radio]").forEach(r => r.disabled = true);
+  document.querySelectorAll(".submit-button, .dontknow-button").forEach(btn => btn.style.display = "none");
+
+  let totalMarks = 0;
+  let negativeMarks = 0;
+  let possibleMarks = Q.length * 4;
+  let detailHTML = '';
+
+  Q.forEach((q, index) => {
+    const checked = document.querySelector(`input[name="${q.id}"]:checked`);
+    const chosen = checked ? checked.value : null;
+
+    const correctLetter = q.correct || q.answer || q.key || q.correctAnswer;
+
+    let marks = 0;
+    let resultText = "";
+
+    if (chosen === null) {
+      marks = 0;
+      resultText = "⚪ Not Attempted / I Don’t Know (0)";
+    } else if (chosen === correctLetter) {
+      marks = 4;
+      resultText = "✅ Correct (+4)";
+    } else {
+      marks = -1;
+      resultText = "❌ Incorrect (-1)";
+    }
+
+    totalMarks += marks > 0 ? marks : 0;
+    negativeMarks += marks < 0 ? marks : 0;
+
+    let solutionStepsHTML = '';
+    if (q.solution_steps && Array.isArray(q.solution_steps) && q.solution_steps.length > 0) {
+      solutionStepsHTML = '<ul style="margin-top:5px;">' +
+        q.solution_steps.map(step => `<li>${step}</li>`).join('') +
+        '</ul>';
+    }
+
+    detailHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${q.text || q.question}</td>
+        <td>${chosen || 'Not Answered'}</td>
+        <td>${correctLetter}</td>
+        <td>${resultText}</td>
+        <td>${q.solution || ''}${solutionStepsHTML}</td>
+        <td>${marks}</td>
+      </tr>`;
+  });
+
+  const finalScore = totalMarks + negativeMarks;
+
+  document.getElementById('scoreText').innerHTML = `${student}, here is your result:`;
+  document.getElementById('scoreDetails').innerHTML = detailHTML;
+
+  const summaryHTML = `
+    <div style="margin-top:20px; font-weight:bold;">
+      <p>Total Marks (Possible): ${possibleMarks}</p>
+      <p>Total Marks (Correct Answers): ${totalMarks}</p>
+      <p>Negative Marks (Wrong Answers): ${negativeMarks}</p>
+      <p>Final Score: ${finalScore}</p>
+    </div>
+  `;
+  document.getElementById('scorecard').insertAdjacentHTML('beforeend', summaryHTML);
+
+  document.getElementById('scorecard').style.display = 'block';
+  document.getElementById('printScoreBtn').style.display = 'inline-block';
+  document.getElementById('shareWhatsappBtn').style.display = 'inline-block';
+
+  if (window.MathJax && typeof MathJax.typesetPromise === 'function') MathJax.typesetPromise();
+}
+
+
+
+
+
+
+function printQuestions() { printMode = "questions"; window.print(); }
+function printScorecard() { document.getElementById("studentPrintName").innerText = student; document.getElementById("examDateTime").innerText = "Exam Date & Time: " + examDateTime; printMode = "scorecard"; window.print(); }
+
+window.addEventListener('beforeprint', () => {
+  if (printMode === "questions") { document.querySelector("#questions-container").style.display = "block"; document.querySelector("#scorecard").style.display = "none"; document.querySelector("#logo").style.display = "none"; document.querySelector("#name-container").style.display = "none"; document.querySelector("#timer").style.display = "none"; document.querySelector("#studentPrintName").style.display = "none"; document.querySelector("#examDateTime").style.display = "none"; }
+  if (printMode === "scorecard") { document.querySelector("#questions-container").style.display = "none"; document.querySelector("#scorecard").style.display = "block"; document.querySelector("#logo").style.display = "block"; document.querySelector("#name-container").style.display = "none"; document.querySelector("#studentPrintName").style.display = "block"; document.querySelector("#examDateTime").style.display = "block"; }
+});
+window.addEventListener('afterprint', () => { document.querySelector("#questions-container").style.display = ""; document.querySelector("#scorecard").style.display = ""; document.querySelector("#logo").style.display = ""; document.querySelector("#name-container").style.display = ""; document.querySelector("#timer").style.display = ""; document.querySelector("#studentPrintName").style.display = "none"; document.querySelector("#examDateTime").style.display = "none"; });
+
+
+
+
+document.getElementById("shareWhatsappBtn").addEventListener("click", function () {
+  const whatsappNumber = "9108069409455";
+
+  if (!student) {
+    alert("Please complete the quiz first.");
+    return;
+  }
+
+  const scoreText = document.getElementById('scoreText').innerText || "Result not available";
+
+  let totalMarks = 0;
+  let negativeMarks = 0;
+  let possibleMarks = Q.length * 4;
+
+  let details = "";
+
+  Q.forEach((q, i) => {
+    const qNum = i + 1;
+    const checked = document.querySelector(`input[name="${q.id}"]:checked`);
+    let userAns = checked ? checked.value : null;
+    const correctAns = q.correct || q.answer || q.key || q.correctAnswer;
+
+    let marks = 0;
+    let resultText = "";
+
+    if (userAns === null) {
+      marks = 0;
+      resultText = "⚪ Not Attempted / I Don’t Know (0)";
+      userAns = "Not Answered";
+    } else if (userAns === correctAns) {
+      marks = 4;
+      resultText = "✅ Correct (+4)";
+    } else {
+      marks = -1;
+      resultText = "❌ Incorrect (-1)";
+    }
+
+    totalMarks += marks > 0 ? marks : 0;
+    negativeMarks += marks < 0 ? marks : 0;
+
+    details += `Q${qNum} → ${resultText} (Your Ans: ${userAns} | Correct: ${correctAns})\n`;
+  });
+
+  const finalScore = totalMarks + negativeMarks;
+
+  const message = `Sir, I have shared my Test Result for checking. Thank you!\n\n📘 Quiz Title: ${quizTitle}\n👤 Student: ${student}\n\n${scoreText}\n\n📊 Summary:\n✔ Total Marks (Possible): ${possibleMarks}\n✔ Total Marks (Correct Answers): ${totalMarks}\n✔ Negative Marks (Wrong Answers): ${negativeMarks}\n✔ Final Score: ${finalScore}\n\nDetails:\n${details}`;
+
+  const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, "_blank");
+});
+
+
+const reportBtn = document.getElementById("reportBtn");
+const reportModal = document.getElementById("reportModal");
+const sendReport = document.getElementById("sendReport");
+const closeReport = document.getElementById("closeReport");
+const reportMsg = document.getElementById("reportMsg");
+
+reportBtn.onclick = () => { reportModal.style.display = "block"; };
+closeReport.onclick = () => { reportModal.style.display = "none"; reportMsg.value = ""; };
+sendReport.onclick = () => {
+  const msg = reportMsg.value.trim();
+  if (!msg) { alert("Please write your message before sending."); return; }
+  const whatsappNumber = "9108069409455";
+  const message = `⚠️ Reported Mistake\n\n📘 Quiz Title: ${quizTitle}\n👤 Student: ${student || "Anonymous"}\n\n📝 Message:\n${msg}`;
+  const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, "_blank");
+  reportModal.style.display = "none";
+  reportMsg.value = "";
+};
+</script>
+
+</body>
+</html>
