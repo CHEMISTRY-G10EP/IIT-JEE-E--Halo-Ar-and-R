@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   
   
-  <title> Quiz – 3. Haloalkanes & Haloarenes (Nomenclature)</title>
+  <title> 3. Haloalkanes & Haloarenes (Nomenclature)</title>
   
   
   <style>
@@ -65,7 +65,7 @@
 <div id="quiz-container">
 
 
-  <h2> Quiz – 3. Haloalkanes & Haloarenes (Nomenclature)</h2>
+  <h2> Quiz –3. Haloalkanes & Haloarenes (Nomenclature)</h2>
   
   
   <p><strong>Time Elapsed:</strong> <span id="timer">00:00</span></p>
@@ -112,7 +112,7 @@
 const Q = [
   {
     "id": "q1",
-    "text": "What is the IUPAC name of CH₃–CH₂–CH₂–Cl?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CH_2–CH_2–Cl} \\)?",
     "options": [
       "Propyl chloride",
       "1-Chloropropane",
@@ -120,11 +120,17 @@ const Q = [
       "n-Propyl chloride"
     ],
     "correct": "B",
-    "solution": "The chlorine atom is on the first carbon in a three-carbon chain, so the correct IUPAC name is 1-chloropropane."
+    "solution": "The chlorine atom is attached to the first carbon of a three-carbon chain.",
+    "solution_steps": [
+      "Longest carbon chain has three carbons → propane.",
+      "Chlorine is attached to the terminal carbon.",
+      "Terminal carbon gets number 1.",
+      "Hence, the IUPAC name is 1-chloropropane."
+    ]
   },
   {
     "id": "q2",
-    "text": "What is the IUPAC name of CH₃–CHCl–CH₃?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CHCl–CH_3} \\)?",
     "options": [
       "1-Chloropropane",
       "2-Chloropropane",
@@ -132,11 +138,17 @@ const Q = [
       "n-Propyl chloride"
     ],
     "correct": "B",
-    "solution": "The chlorine atom is on the second carbon of propane, so the correct name is 2-chloropropane."
+    "solution": "The chlorine atom is on the second carbon of propane.",
+    "solution_steps": [
+      "Parent chain contains three carbons → propane.",
+      "Chlorine is attached to the middle carbon.",
+      "Middle carbon is carbon-2.",
+      "Hence, the name is 2-chloropropane."
+    ]
   },
   {
     "id": "q3",
-    "text": "What is the IUPAC name of CH₂Cl–CH₂–CH₃?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_2Cl–CH_2–CH_3} \\)?",
     "options": [
       "1-Chloropropane",
       "2-Chloropropane",
@@ -144,11 +156,17 @@ const Q = [
       "n-Propyl chloride"
     ],
     "correct": "A",
-    "solution": "The chlorine atom is on the first carbon, so the IUPAC name is 1-chloropropane."
+    "solution": "Chlorine is attached to the terminal carbon of propane.",
+    "solution_steps": [
+      "Longest chain is propane.",
+      "Chlorine is on terminal carbon.",
+      "Terminal position corresponds to carbon-1.",
+      "Hence, the name is 1-chloropropane."
+    ]
   },
   {
     "id": "q4",
-    "text": "What is the IUPAC name of CH₃–CCl₂–CH₃?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CCl_2–CH_3} \\)?",
     "options": [
       "1,1-Dichloropropane",
       "2,2-Dichloropropane",
@@ -156,11 +174,17 @@ const Q = [
       "1,3-Dichloropropane"
     ],
     "correct": "B",
-    "solution": "Both chlorine atoms are on the second carbon, so the correct name is 2,2-dichloropropane."
+    "solution": "Both chlorine atoms are attached to the same carbon.",
+    "solution_steps": [
+      "Parent chain is propane.",
+      "Two chlorine atoms are on the middle carbon.",
+      "Middle carbon is carbon-2.",
+      "Hence, the name is 2,2-dichloropropane."
+    ]
   },
   {
     "id": "q5",
-    "text": "What is the IUPAC name of CH₂Cl–CH₂Cl?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_2Cl–CH_2Cl} \\)?",
     "options": [
       "1,2-Dichloroethane",
       "Ethyl chloride",
@@ -168,11 +192,16 @@ const Q = [
       "Chloroethene"
     ],
     "correct": "A",
-    "solution": "Two chlorine atoms are on carbons 1 and 2 of ethane, so the name is 1,2-dichloroethane."
+    "solution": "Each carbon of ethane has one chlorine atom.",
+    "solution_steps": [
+      "Carbon chain has two carbons → ethane.",
+      "Chlorine atoms are on carbon-1 and carbon-2.",
+      "Hence, the name is 1,2-dichloroethane."
+    ]
   },
   {
     "id": "q6",
-    "text": "What is the IUPAC name of C₆H₅–Cl?",
+    "text": "What is the IUPAC name of \\( \\mathrm{C_6H_5–Cl} \\)?",
     "options": [
       "Chlorobenzene",
       "Phenyl chloride",
@@ -180,11 +209,16 @@ const Q = [
       "Vinyl chloride"
     ],
     "correct": "A",
-    "solution": "A chlorine atom directly attached to a benzene ring is called chlorobenzene."
+    "solution": "Chlorine is directly attached to a benzene ring.",
+    "solution_steps": [
+      "Parent structure is benzene.",
+      "Chlorine directly substitutes hydrogen on benzene.",
+      "Hence, the compound is chlorobenzene."
+    ]
   },
   {
     "id": "q7",
-    "text": "What is the common name of CH₂=CH–Cl?",
+    "text": "What is the common name of \\( \\mathrm{CH_2=CH–Cl} \\)?",
     "options": [
       "Vinyl chloride",
       "Allyl chloride",
@@ -192,11 +226,17 @@ const Q = [
       "Ethyl chloride"
     ],
     "correct": "A",
-    "solution": "CH₂=CH–Cl is known as vinyl chloride or chloroethene."
+    "solution": "Chlorine is attached to a vinylic carbon.",
+    "solution_steps": [
+      "Double bond is present between two carbons.",
+      "Chlorine is attached to the double bonded carbon.",
+      "Such compounds are called vinyl halides.",
+      "Hence, the name is vinyl chloride."
+    ]
   },
   {
     "id": "q8",
-    "text": "What is the IUPAC name of CH₂=CH–CH₂–Cl?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_2=CH–CH_2–Cl} \\)?",
     "options": [
       "Vinyl chloride",
       "Allyl chloride",
@@ -204,23 +244,34 @@ const Q = [
       "2-Chloropropene"
     ],
     "correct": "B",
-    "solution": "CH₂=CH–CH₂–Cl is called allyl chloride because the chlorine atom is attached to the carbon next to the double bond."
+    "solution": "Chlorine is attached to the allylic carbon.",
+    "solution_steps": [
+      "Double bond present in the molecule.",
+      "Chlorine is on carbon adjacent to the double bond.",
+      "Such compounds are called allyl halides.",
+      "Hence, the name is allyl chloride."
+    ]
   },
   {
     "id": "q9",
     "text": "Which of the following is a dihalogenated aryl compound?",
     "options": [
-      "1,4–Dichlorobenzene",
+      "1,4-Dichlorobenzene",
       "CH₂Cl–CH₂–Cl",
       "CHCl=CH–Cl",
       "C₂H₅–CHCl₂"
     ],
     "correct": "A",
-    "solution": "1,4–Dichlorobenzene is an aryl dihalide with two chlorine atoms attached to a benzene ring."
+    "solution": "Both halogens are attached to a benzene ring.",
+    "solution_steps": [
+      "Aryl compounds have halogen directly attached to aromatic ring.",
+      "1,4-Dichlorobenzene has two chlorine atoms on benzene.",
+      "Hence, it is a dihalogenated aryl compound."
+    ]
   },
   {
     "id": "q10",
-    "text": "What is the IUPAC name of C₆H₅–CH₂–Cl?",
+    "text": "What is the IUPAC name of \\( \\mathrm{C_6H_5–CH_2–Cl} \\)?",
     "options": [
       "Chlorobenzene",
       "Benzyl chloride",
@@ -228,11 +279,18 @@ const Q = [
       "Methyl chloride"
     ],
     "correct": "B",
-    "solution": "C₆H₅–CH₂–Cl is benzyl chloride, with chlorine attached to the –CH₂ group linked to benzene."
+    "solution": "Chlorine is attached to the benzylic carbon.",
+    "solution_steps": [
+      "Benzene ring is attached to –CH₂ group.",
+      "Chlorine is on the –CH₂ group.",
+      "This is benzyl position.",
+      "Hence, the compound is benzyl chloride."
+    ]
   },
+
   {
     "id": "q11",
-    "text": "What is the IUPAC name of CH₃–CH₂–CH₂–Br?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CH_2–CH_2–Br} \\)?",
     "options": [
       "1-Bromopropane",
       "2-Bromopropane",
@@ -240,11 +298,16 @@ const Q = [
       "Isopropyl bromide"
     ],
     "correct": "A",
-    "solution": "The bromine atom is on the first carbon, so the IUPAC name is 1-bromopropane."
+    "solution": "Bromine is attached to the terminal carbon.",
+    "solution_steps": [
+      "Parent chain is propane.",
+      "Bromine is on carbon-1.",
+      "Hence, the IUPAC name is 1-bromopropane."
+    ]
   },
   {
     "id": "q12",
-    "text": "What is the IUPAC name of CH₃–CHBr–CH₃?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CHBr–CH_3} \\)?",
     "options": [
       "1-Bromopropane",
       "2-Bromopropane",
@@ -252,11 +315,17 @@ const Q = [
       "n-Propyl bromide"
     ],
     "correct": "B",
-    "solution": "The bromine atom is on the second carbon, so it is 2-bromopropane."
+    "solution": "Bromine is attached to the second carbon.",
+    "solution_steps": [
+      "Parent chain has three carbons.",
+      "Bromine is on middle carbon.",
+      "Middle carbon is carbon-2.",
+      "Hence, the name is 2-bromopropane."
+    ]
   },
   {
     "id": "q13",
-    "text": "What is the IUPAC name of CH₂Br–CH₂Br?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_2Br–CH_2Br} \\)?",
     "options": [
       "1,2-Dibromoethane",
       "Ethyl bromide",
@@ -264,11 +333,16 @@ const Q = [
       "Bromoethene"
     ],
     "correct": "A",
-    "solution": "Two bromine atoms on carbons 1 and 2 of ethane give 1,2-dibromoethane."
+    "solution": "Both carbons of ethane have bromine.",
+    "solution_steps": [
+      "Parent chain is ethane.",
+      "Bromine atoms are on carbon-1 and carbon-2.",
+      "Hence, the name is 1,2-dibromoethane."
+    ]
   },
   {
     "id": "q14",
-    "text": "What is the IUPAC name of CH₃–CBr₂–CH₃?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CBr_2–CH_3} \\)?",
     "options": [
       "1,1-Dibromopropane",
       "2,2-Dibromopropane",
@@ -276,11 +350,17 @@ const Q = [
       "1,3-Dibromopropane"
     ],
     "correct": "B",
-    "solution": "Both bromine atoms are on carbon 2, so the name is 2,2-dibromopropane."
+    "solution": "Both bromine atoms are on the same carbon.",
+    "solution_steps": [
+      "Parent chain is propane.",
+      "Two bromine atoms on middle carbon.",
+      "Middle carbon is carbon-2.",
+      "Hence, the name is 2,2-dibromopropane."
+    ]
   },
   {
     "id": "q15",
-    "text": "What is the IUPAC name of C₆H₅–Br?",
+    "text": "What is the IUPAC name of \\( \\mathrm{C_6H_5–Br} \\)?",
     "options": [
       "Bromobenzene",
       "Phenyl bromide",
@@ -288,11 +368,16 @@ const Q = [
       "Bromoethene"
     ],
     "correct": "A",
-    "solution": "A bromine atom directly attached to benzene gives bromobenzene."
+    "solution": "Bromine is directly attached to benzene.",
+    "solution_steps": [
+      "Parent ring is benzene.",
+      "Bromine substitutes hydrogen on benzene.",
+      "Hence, the name is bromobenzene."
+    ]
   },
   {
     "id": "q16",
-    "text": "What is the common name of CH₂=CH–Br?",
+    "text": "What is the common name of \\( \\mathrm{CH_2=CH–Br} \\)?",
     "options": [
       "Vinyl bromide",
       "Allyl bromide",
@@ -300,11 +385,16 @@ const Q = [
       "Ethyl bromide"
     ],
     "correct": "A",
-    "solution": "CH₂=CH–Br is vinyl bromide, also called bromoethene."
+    "solution": "Bromine is attached to vinylic carbon.",
+    "solution_steps": [
+      "Compound has a carbon-carbon double bond.",
+      "Bromine is attached directly to double bonded carbon.",
+      "Hence, it is vinyl bromide."
+    ]
   },
   {
     "id": "q17",
-    "text": "What is the IUPAC name of CH₂=CH–CH₂–Br?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_2=CH–CH_2–Br} \\)?",
     "options": [
       "Vinyl bromide",
       "Allyl bromide",
@@ -312,23 +402,34 @@ const Q = [
       "2-Bromopropene"
     ],
     "correct": "B",
-    "solution": "The bromine atom is on the carbon next to the double bond, making it allyl bromide."
+    "solution": "Bromine is attached to allylic carbon.",
+    "solution_steps": [
+      "Double bond present in molecule.",
+      "Bromine is on carbon adjacent to double bond.",
+      "Such compounds are allyl halides.",
+      "Hence, the name is allyl bromide."
+    ]
   },
   {
     "id": "q18",
     "text": "Which of the following is a dihalogenated alkane?",
     "options": [
-      "1,2–Dichloroethane",
-      "1,4–Dichlorobenzene",
+      "1,2-Dichloroethane",
+      "1,4-Dichlorobenzene",
       "Vinyl chloride",
       "Benzyl chloride"
     ],
     "correct": "A",
-    "solution": "1,2–Dichloroethane has two chlorine atoms attached to an alkane chain."
+    "solution": "Both halogens are attached to an alkane chain.",
+    "solution_steps": [
+      "Alkane means saturated carbon chain.",
+      "1,2-Dichloroethane has two chlorines on ethane.",
+      "Hence, it is a dihalogenated alkane."
+    ]
   },
   {
     "id": "q19",
-    "text": "What is the IUPAC name of C₆H₅–CHCl₂?",
+    "text": "What is the IUPAC name of \\( \\mathrm{C_6H_5–CHCl_2} \\)?",
     "options": [
       "Benzylidene chloride",
       "Chlorobenzene",
@@ -336,11 +437,16 @@ const Q = [
       "Phenyl chloride"
     ],
     "correct": "A",
-    "solution": "C₆H₅–CHCl₂ is benzylidene chloride, with two chlorines on the same carbon of the –CH group."
+    "solution": "Two chlorine atoms are on the same benzylic carbon.",
+    "solution_steps": [
+      "Benzene ring is attached to –CH group.",
+      "That carbon has two chlorine atoms.",
+      "Such compound is benzylidene chloride."
+    ]
   },
   {
     "id": "q20",
-    "text": "What is the IUPAC name of CH₃–CH₂–CH₂–I?",
+    "text": "What is the IUPAC name of \\( \\mathrm{CH_3–CH_2–CH_2–I} \\)?",
     "options": [
       "1-Iodopropane",
       "2-Iodopropane",
@@ -348,11 +454,17 @@ const Q = [
       "Isopropyl iodide"
     ],
     "correct": "A",
-    "solution": "The iodine atom is on the first carbon, so the IUPAC name is 1-iodopropane."
+    "solution": "Iodine is attached to the terminal carbon.",
+    "solution_steps": [
+      "Parent chain is propane.",
+      "Iodine is on carbon-1.",
+      "Hence, the IUPAC name is 1-iodopropane."
+    ]
   }
 ]
-]
+
 ;
+
 
 
 
@@ -407,12 +519,18 @@ function buildQuestions() {
     const imageHTML = q.image ? `<div><img src="${q.image}" alt="figure" style="max-width:360px; margin:10px 0; display:block;"></div>` : '';
 
     // Handle solution steps if they exist
-    let solutionStepsHTML = '';
-    if (q.solution_steps && Array.isArray(q.solution_steps) && q.solution_steps.length > 0) {
-      solutionStepsHTML = '<ul style="margin-top:10px;">' +
-        q.solution_steps.map(step => `<li>${step}</li>`).join('') +
-        '</ul>';
-    }
+let solutionStepsHTML = '';
+if (q.solution_steps && Array.isArray(q.solution_steps) && q.solution_steps.length > 0) {
+  solutionStepsHTML = '<ul style="margin-top:10px;">' +
+    q.solution_steps.map(step => {
+      if (step.includes("\n")) {
+        return `<li><pre style="background:#111; padding:6px; border-radius:4px; overflow-x:auto;">${step}</pre></li>`;
+      }
+      return `<li>${step}</li>`;
+    }).join('') +
+    '</ul>';
+}
+
 
     out.insertAdjacentHTML('beforeend', `
       <div class="question" id="${q.id}-wrap">
