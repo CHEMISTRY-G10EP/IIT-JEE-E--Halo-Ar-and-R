@@ -556,7 +556,7 @@ window.addEventListener('afterprint', () => { document.querySelector("#questions
 
 
 document.getElementById("shareWhatsappBtn").addEventListener("click", function () {
-  const whatsappNumber = "9108069409455";
+  const whatsappNumber = "919706380357";
 
   if (!student) {
     alert("Please complete the quiz first.");
@@ -618,7 +618,7 @@ closeReport.onclick = () => { reportModal.style.display = "none"; reportMsg.valu
 sendReport.onclick = () => {
   const msg = reportMsg.value.trim();
   if (!msg) { alert("Please write your message before sending."); return; }
-  const whatsappNumber = "9108069409455";
+  const whatsappNumber = "919706380357";
   const message = `⚠️ Reported Mistake\n\n📘 Quiz Title: ${quizTitle}\n👤 Student: ${student || "Anonymous"}\n\n📝 Message:\n${msg}`;
   const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, "_blank");
